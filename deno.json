@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "aws-sdk": "npm:aws-sdk"
+  },
+  "nodeModulesDir": "auto"
+}
