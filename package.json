@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "run": "deno run main.ts",
+    "run-env": "deno run --env-file main.ts"
+  }
+}
