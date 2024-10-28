@@ -1,6 +1,9 @@
 # Mini-cloud storage in AWS
 
-v0:
+Version right now: v0.0
+
+Next version: \
+v0.1:
 
 - .exe console that requires AWS region, key, bucket name etc. And creates folder AWS with files from AWS
 
