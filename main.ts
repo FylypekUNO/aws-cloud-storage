@@ -29,15 +29,49 @@ async function getS3Client() {
   const s3 = new AWS.S3();
 
   try {
+    // Test the connection
     await s3.listBuckets().promise();
+
     console.log("Successfully connected to AWS S3.");
+
     return s3;
-  } catch (error: any) {
-    console.error("Failed to connect to AWS:", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Failed to connect to AWS:", error.message);
+    } else {
+      console.error("Failed to connect to AWS.", error);
+    }
+
     return null;
+  }
+}
+
+async function listBuckets(s3: AWS.S3): Promise<void> {
+  try {
+    const data = await s3.listBuckets().promise();
+    const buckets = data.Buckets || [];
+
+    if (buckets.length === 0) {
+      console.log("No buckets found.");
+      return;
+    }
+
+    console.log(`Buckets [${buckets.length}]:`);
+    for (const bucket of buckets) {
+      console.log(`  - ${bucket.Name}`);
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Failed to list buckets:", error.message);
+    } else {
+      console.error("Failed to list buckets:", error);
+    }
   }
 }
 
 (async () => {
   const s3 = await getS3Client();
+  if (!s3) return;
+
+  await listBuckets(s3);
 })();
